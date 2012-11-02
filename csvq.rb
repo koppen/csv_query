@@ -51,6 +51,29 @@ csv.each do |row|
   statement.execute(row.fields)
 end
 
-database.execute2(sql_query).each do |result|
-  puts result.join(' | ')
+results = database.execute2(sql_query)
+
+num_columns = if results.first
+  results.first.size
+else
+  0
+end
+column_widths = [0] * num_columns
+results.collect { |row|
+  row.each_with_index do |column, index|
+    width = column.size
+    column_widths[index] = width if width > column_widths[index]
+  end
+}
+format_strings = column_widths.collect { |width|
+  "%#{width}s"
+}
+format_string = format_strings.join(" | ")
+
+results.each_with_index do |result, index|
+  puts format_string % result
+  if index == 0
+    # Seperate headers and results
+    puts column_widths.collect { |width| '-' * width }.join('-+-')
+  end
 end
