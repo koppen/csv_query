@@ -36,31 +36,23 @@ csv = CSV.parse(csv_data, csv_options)
 
 require 'sqlite3'
 
-begin
-  puts "Creating database"
-  database_path = 'tmpdb.sqlite3'
-  database = SQLite3::Database.new(database_path)
+puts "Creating database"
+database = SQLite3::Database.new(':memory:')
 
-  puts "Creating table"
-  column_definitions = csv.headers.collect { |name| "#{name} VARCHAR(255)" }
-  database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
+puts "Creating table"
+column_definitions = csv.headers.collect { |name| "#{name} VARCHAR(255)" }
+database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
 
-  puts "Importing"
-  sql = "INSERT INTO csv VALUES (#{(['?'] * csv.headers.size).join(',')})"
-  statement = database.prepare(sql)
+puts "Importing"
+sql = "INSERT INTO csv VALUES (#{(['?'] * csv.headers.size).join(',')})"
+statement = database.prepare(sql)
 
-  csv.each do |row|
-    statement.execute(row.fields)
-  end
+csv.each do |row|
+  statement.execute(row.fields)
+end
 
-  puts csv.headers.join(' | ')
-  puts sql_query
-  database.execute(sql_query).each do |result|
-    puts result.join(' | ')
-  end
-
-rescue Exception => error
-  raise
-ensure
-  File.delete(database_path)
+puts csv.headers.join(' | ')
+puts sql_query
+database.execute(sql_query).each do |result|
+  puts result.join(' | ')
 end
