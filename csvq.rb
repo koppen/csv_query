@@ -46,9 +46,11 @@ begin
   database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
 
   puts "Importing"
+  sql = "INSERT INTO csv VALUES (#{(['?'] * csv.headers.size).join(',')})"
+  statement = database.prepare(sql)
+
   csv.each do |row|
-    sql = "INSERT INTO csv VALUES (#{(['?'] * row.fields.size).join(',')})"
-    database.execute(sql, row.fields)
+    statement.execute(row.fields)
   end
 
   puts csv.headers.join(' | ')
