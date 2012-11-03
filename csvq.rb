@@ -11,7 +11,7 @@
 require 'optparse'
 options = {}
 OptionParser.new do |opts|
-  opts.banner = "Usage: example.rb [options]"
+  opts.banner = "Usage: csvq [options] [SQL query] [CSV file]"
 
   opts.on(
     "-d",
@@ -23,6 +23,7 @@ OptionParser.new do |opts|
 end.parse!
 
 sql_query = ARGV[0]
+csv_file = ARGV[1]
 
 require 'csv'
 csv_options = {
@@ -30,7 +31,11 @@ csv_options = {
   :col_sep => options[:delimiter] || ','
 }
 
-csv_data = STDIN.read
+csv_data = if csv_file
+  File.read(csv_file)
+else
+  csv_data = STDIN.read
+end
 csv = CSV.parse(csv_data, csv_options)
 # puts csv.headers.inspect
 
