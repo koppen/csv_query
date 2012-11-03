@@ -1,13 +1,5 @@
 #!/usr/bin/env ruby
 
-# Usage
-# csvq [options] sql csv
-#
-# Options
-# -d: column_delimiter
-
-# puts ARGV.inspect
-
 require 'optparse'
 options = {}
 OptionParser.new do |opts|
