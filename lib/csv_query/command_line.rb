@@ -5,7 +5,7 @@ module CsvQuery
     def self.parse_options_from_commandline
       options = {}
       OptionParser.new do |opts|
-        opts.banner = "Usage: csvq [options] [SQL query] [CSV file]"
+        opts.banner = "Usage: csvq [options] [CSV file]"
 
         opts.on(
           "-d",
@@ -14,10 +14,16 @@ module CsvQuery
         ) do |d|
           options[:delimiter] = d
         end
+        opts.on(
+          "-q",
+          "--query SQL",
+          "The SQL query to run on the dataset."
+        ) do |q|
+          options[:sql_query] = q
+        end
       end.parse!
 
-      options[:sql_query] = ARGV[0]
-      options[:csv_file] = ARGV[1]
+      options[:csv_file] = ARGV[0]
 
       options
     end
