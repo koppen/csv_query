@@ -25,7 +25,7 @@ module CsvQuery
     def self.run
       options = parse_options_from_commandline
 
-      CsvQuery::Query.new.run(options)
+      CsvQuery::Query.new(options).run
     end
   end
 end
