@@ -1,9 +1,9 @@
+require 'csv'
+require 'optparse'
+require 'sqlite3'
+
 module CsvQuery
   class Query
-    require 'csv'
-    require 'optparse'
-    require 'sqlite3'
-
     def create_database_and_table(csv)
       database = SQLite3::Database.new(':memory:')
 
@@ -49,26 +49,6 @@ module CsvQuery
       end
     end
 
-    def parse_options_from_commandline
-      options = {}
-      OptionParser.new do |opts|
-        opts.banner = "Usage: csvq [options] [SQL query] [CSV file]"
-
-        opts.on(
-          "-d",
-          "--delimiter DELIMITER",
-          "Sets the DELIMITER used between fields in the CSV data"
-        ) do |d|
-          options[:delimiter] = d
-        end
-      end.parse!
-
-      options[:sql_query] = ARGV[0]
-      options[:csv_file] = ARGV[1]
-
-      options
-    end
-
     def parse_csv_data(options)
       csv_options = {
         :headers => true,
@@ -83,8 +63,7 @@ module CsvQuery
       csv = CSV.parse(csv_data, csv_options)
     end
 
-    def run
-      options = parse_options_from_commandline
+    def run(options)
       csv = parse_csv_data(options)
 
       database = create_database_and_table(csv)
