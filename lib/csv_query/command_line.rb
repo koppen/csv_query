@@ -45,7 +45,13 @@ module CsvQuery
     def self.run
       options = parse_options_from_commandline
 
-      CsvQuery::Query.new(options).run
+      csv_data = if options[:csv_file]
+        File.read(options[:csv_file])
+      else
+        STDIN.read
+      end
+
+      CsvQuery::Query.new(csv_data, options).run
     end
   end
 end

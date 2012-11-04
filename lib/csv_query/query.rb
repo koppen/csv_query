@@ -4,9 +4,10 @@ require 'sqlite3'
 
 module CsvQuery
   class Query
-    attr_reader :options
+    attr_reader :csv_data, :options
 
-    def initialize(options)
+    def initialize(csv_data, options)
+      @csv_data = csv_data
       @options = options
     end
 
@@ -50,7 +51,7 @@ module CsvQuery
     end
 
     def csv
-      @csv ||= parse_csv_data
+      @parsed_csv ||= parse_csv_data
     end
 
     def database
@@ -99,15 +100,7 @@ module CsvQuery
         :col_sep => options[:delimiter] || ','
       }
 
-      csv = CSV.parse(read_csv_data(options[:csv_file]), csv_options)
-    end
-
-    def read_csv_data(csv_file)
-      if options[:csv_file]
-        File.read(options[:csv_file])
-      else
-        STDIN.read
-      end
+      csv = CSV.parse(csv_data, csv_options)
     end
 
     def run_query
