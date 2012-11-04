@@ -22,7 +22,7 @@ module CsvQuery
       sql_query = options[:sql_query]
       return sql_query unless sql_query.nil?
 
-      select_statement = "SELECT #{options[:select] || '*'}"
+      select_statement = "SELECT #{options[:select]}"
       from_statement = "FROM csv"
       where_statement = if options[:where]
         "WHERE #{options[:where]}"
@@ -97,7 +97,7 @@ module CsvQuery
     def parse_csv_data
       csv_options = {
         :headers => true,
-        :col_sep => options[:delimiter] || ','
+        :col_sep => options[:delimiter]
       }
 
       csv = CSV.parse(csv_data, csv_options)

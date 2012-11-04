@@ -4,13 +4,18 @@ module CsvQuery
   class CommandLine
     def self.parse_options_from_commandline
       options = {}
+
+      # Set defaults
+      options[:delimiter] = ','
+      options[:select] = '*'
+
       OptionParser.new do |opts|
         opts.banner = "Usage: csvq [options] [CSV file]"
 
         opts.on(
           "-d",
           "--delimiter DELIMITER",
-          "Sets the DELIMITER used between fields in the CSV data"
+          "Sets the DELIMITER used between fields in the CSV data."
         ) do |d|
           options[:delimiter] = d
         end
