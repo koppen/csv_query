@@ -21,6 +21,20 @@ module CsvQuery
         ) do |q|
           options[:sql_query] = q
         end
+        opts.on(
+          "-s",
+          "--select SQL",
+          "The SQL statement to select what fields to return."
+        ) do |s|
+          options[:select] = s
+        end
+        opts.on(
+          "-w",
+          "--where SQL",
+          "The SQL conditions to use for quering the dataset."
+        ) do |w|
+          options[:where] = w
+        end
       end.parse!
 
       options[:csv_file] = ARGV[0]

@@ -11,11 +11,28 @@ module CsvQuery
     end
 
     def run
-      results = database.execute2(options[:sql_query])
+      results = run_query
       output_results_table(results)
     end
 
     private
+
+    def build_sql_query
+      sql_query = options[:sql_query]
+      return sql_query unless sql_query.nil?
+
+      select_statement = "SELECT #{options[:select] || '*'}"
+      from_statement = "FROM csv"
+      where_statement = if options[:where]
+        "WHERE #{options[:where]}"
+      end
+
+      [
+        select_statement,
+        from_statement,
+        where_statement
+      ].join(" ")
+    end
 
     def create_database_and_table(csv)
       database = SQLite3::Database.new(':memory:')
@@ -91,6 +108,14 @@ module CsvQuery
       else
         STDIN.read
       end
+    end
+
+    def run_query
+      database.execute2(sql_query)
+    end
+
+    def sql_query
+      @sql_query ||= build_sql_query
     end
   end
 end
