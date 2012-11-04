@@ -37,21 +37,13 @@ module CsvQuery
         end
       end.parse!
 
-      options[:csv_file] = ARGV[0]
-
       options
     end
 
     def self.run
       options = parse_options_from_commandline
 
-      csv_data = if options[:csv_file]
-        File.read(options[:csv_file])
-      else
-        STDIN.read
-      end
-
-      CsvQuery::Query.new(csv_data, options).run
+      CsvQuery::Query.new(ARGF.read, options).run
     end
   end
 end
