@@ -29,3 +29,8 @@ Alternative/related projects
 
 * [csvq.py - Python variant that does almost the same thing](http://www.gl1tch.com/~lukewarm/software/csvq/)
 * [CSVql - A query language for CSV files](https://github.com/ondrasej/CSVql)
+
+License
+-------
+
+Licensed under the MIT License. See LICENSE for details.
