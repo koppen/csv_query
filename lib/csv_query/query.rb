@@ -58,6 +58,10 @@ module CsvQuery
       @database ||= create_database_with_data_from_csv
     end
 
+    def headers
+      options[:headers] || :first_row
+    end
+
     def import_csv_into_database(csv, database)
       sql = "INSERT INTO csv VALUES (#{(['?'] * csv.headers.size).join(',')})"
       statement = database.prepare(sql)
@@ -96,7 +100,7 @@ module CsvQuery
 
     def parse_csv_data
       csv_options = {
-        :headers => true,
+        :headers => headers,
         :col_sep => options[:delimiter]
       }
 

@@ -21,6 +21,13 @@ module CsvQuery
           options[:delimiter] = d
         end
         opts.on(
+          "-H",
+          "--headers HEADERS",
+          "Comma separated list of headers. Default: First row of CSV data."
+        ) do |h|
+          options[:headers] = h
+        end
+        opts.on(
           "-q",
           "--query SQL",
           "The SQL query to run on the dataset. If specified --select and --where will be ignored."
