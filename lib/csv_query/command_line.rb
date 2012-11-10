@@ -30,7 +30,7 @@ module CsvQuery
         opts.on(
           "-q",
           "--query SQL",
-          "The SQL query to run on the dataset. If specified --select and --where will be ignored."
+          "The SQL query to run on the dataset. The table name to select data from is named \"csv\", ie \"--query 'SELECT * FROM csv'\" recreates default behavior. If specified --select and --where will be ignored."
         ) do |q|
           options[:sql_query] = q
         end
