@@ -6,7 +6,7 @@ stored in CSV files.
 
 For example:
 
-    $ csvq --select "count(*)" sample.csv
+    $ csvq --select "count(*)" --where "name='Jakob'" sample.csv
     count(*)
     --------
            1
