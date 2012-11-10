@@ -38,7 +38,7 @@ module CsvQuery
     def create_database_and_table(csv)
       database = SQLite3::Database.new(':memory:')
 
-      column_definitions = csv.headers.collect { |name| "#{name} VARCHAR(255)" }
+      column_definitions = csv.headers.collect { |name| "\"#{name}\" VARCHAR(255)" }
       database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
 
       database
