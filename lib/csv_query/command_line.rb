@@ -5,10 +5,6 @@ module CsvQuery
     def self.parse_options_from_commandline
       options = {}
 
-      # Set defaults
-      options[:delimiter] = ','
-      options[:select] = '*'
-
       OptionParser.new do |opts|
         opts.banner = "Usage: csvq [options] [CSV file]"
         opts.separator ""
@@ -16,7 +12,7 @@ module CsvQuery
         opts.on(
           "-d",
           "--delimiter DELIMITER",
-          "Sets the DELIMITER used between fields in the CSV data. Default: #{options[:delimiter].inspect}"
+          "Sets the DELIMITER used between fields in the CSV data. Default: #{Query::DEFAULT_OPTIONS[:delimiter].inspect}"
         ) do |d|
           options[:delimiter] = d
         end
@@ -37,7 +33,7 @@ module CsvQuery
         opts.on(
           "-s",
           "--select SQL",
-          "The SQL statement to select what fields to return. Unused if --query is given. Default: #{options[:select].inspect}."
+          "The SQL statement to select what fields to return. Unused if --query is given. Default: #{Query::DEFAULT_OPTIONS[:select].inspect}."
         ) do |s|
           options[:select] = s
         end

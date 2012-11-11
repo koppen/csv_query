@@ -6,9 +6,14 @@ module CsvQuery
   class Query
     attr_reader :csv_data, :options
 
-    def initialize(csv_data, options)
+    DEFAULT_OPTIONS = {
+      :delimiter => ',',
+      :select => '*'
+    }
+
+    def initialize(csv_data, options = {})
       @csv_data = csv_data
-      @options = options
+      @options = options.merge(DEFAULT_OPTIONS)
     end
 
     def run
