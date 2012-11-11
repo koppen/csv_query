@@ -104,7 +104,7 @@ module CsvQuery
         :col_sep => options[:delimiter]
       }
 
-      csv = CSV.parse(csv_data, csv_options)
+      CSV.parse(csv_data, csv_options)
     end
 
     def run_query
