@@ -11,8 +11,9 @@ module CsvQuery
       :select => '*'
     }
 
-    def initialize(csv_data, options = {})
+    def initialize(csv_data, outputter, options = {})
       @csv_data = csv_data
+      @outputter = outputter
       @options = options.merge(DEFAULT_OPTIONS)
     end
 
@@ -77,30 +78,7 @@ module CsvQuery
     end
 
     def output_results_table(results)
-      num_columns = if results.first
-        results.first.size
-      else
-        0
-      end
-      column_widths = [0] * num_columns
-      results.collect { |row|
-        row.each_with_index do |column, index|
-          width = column.size
-          column_widths[index] = width if width > column_widths[index]
-        end
-      }
-      format_strings = column_widths.collect { |width|
-        "%#{width}s"
-      }
-      format_string = format_strings.join(" | ")
-
-      results.each_with_index do |result, index|
-        puts format_string % result
-        if index == 0
-          # Seperate headers and results
-          puts column_widths.collect { |width| '-' * width }.join('-+-')
-        end
-      end
+      @outputter.output(results)
     end
 
     def parse_csv_data

@@ -1,3 +1,4 @@
+require 'csv_query/outputter'
 require 'csv_query/query'
 
 module CsvQuery
@@ -55,9 +56,10 @@ module CsvQuery
     end
 
     def self.run
+      csv_data = ARGF.read
+      outputter = CsvQuery::Outputter
       options = parse_options_from_commandline
-
-      CsvQuery::Query.new(ARGF.read, options).run
+      CsvQuery::Query.new(csv_data, outputter, options).run
     end
   end
 end
