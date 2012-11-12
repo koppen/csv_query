@@ -56,9 +56,9 @@ module CsvQuery
     end
 
     def self.run
+      options = parse_options_from_commandline
       csv_data = ARGF.read
       outputter = CsvQuery::Outputter
-      options = parse_options_from_commandline
       CsvQuery::Query.new(csv_data, outputter, options).run
     end
   end
