@@ -52,6 +52,23 @@ A |                    B | Somewhat long header
 --+----------------------+---------------------
 1 | Somewhat long result |                    3
 EOS
+    end
+
+    it "works with numeric results" do
+      results = [
+        ["Animal", "COUNT(*)"],
+        ["Monkeys", 12]
+      ]
+
+      output = capture_stdout do
+        CsvQuery::Outputter.output(results)
       end
+
+      output.must_equal <<EOS
+ Animal | COUNT(*)
+--------+---------
+Monkeys |       12
+EOS
+    end
   end
 end
