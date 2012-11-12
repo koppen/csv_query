@@ -11,6 +11,8 @@ For example:
     --------
            1
 
+[![Build Status](https://secure.travis-ci.org/koppen/csv_query.png?branch=master)](https://travis-ci.org/koppen/csv_query)
+
 Assumptions
 -----------
 
