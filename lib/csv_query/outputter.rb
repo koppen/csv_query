@@ -31,8 +31,8 @@ module CsvQuery
 
       column_widths = [0] * num_columns
       results.collect { |row|
-        row.each_with_index do |column, index|
-          width = column.size
+        row.each_with_index do |value, index|
+          width = value.to_s.size
           column_widths[index] = width if width > column_widths[index]
         end
       }

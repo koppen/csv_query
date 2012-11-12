@@ -56,8 +56,8 @@ EOS
 
     it "works with numeric results" do
       results = [
-        ["Animal", "COUNT(*)"],
-        ["Monkeys", 12]
+        ["Animal", "COUNT(*)", "Average"],
+        ["Monkeys", 12, 123.456]
       ]
 
       output = capture_stdout do
@@ -65,9 +65,9 @@ EOS
       end
 
       output.must_equal <<EOS
- Animal | COUNT(*)
---------+---------
-Monkeys |       12
+ Animal | COUNT(*) | Average
+--------+----------+--------
+Monkeys |       12 | 123.456
 EOS
     end
   end
