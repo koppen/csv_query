@@ -1,15 +1,8 @@
-require 'minitest/autorun'
-require 'stringio'
+require_relative '../test_helper'
 
-# Require files from the project lib-directory
-$:.unshift(File.join(File.dirname(__FILE__), "..", "..", "lib"))
 require 'csv_query/outputter'
 
 describe CsvQuery::Outputter do
-  def outputter(results = [])
-    @outputter ||= CsvQuery::Outputter.new(results)
-  end
-
   describe "creating a new instance" do
     it "stores results for later access" do
       results = [["Foo"]]
@@ -34,7 +27,7 @@ describe CsvQuery::Outputter do
       ]
 
       output = capture_stdout do
-        outputter(results).output
+        CsvQuery::Outputter.output(results)
       end
 
       output.must_equal <<EOS
@@ -50,10 +43,8 @@ EOS
         ["1", "Somewhat long result", "3"]
       ]
 
-      existing_stream = $stdout
-      $stdout = StringIO.new
       output = capture_stdout do
-        outputter(results).output
+        CsvQuery::Outputter.output(results)
       end
 
       output.must_equal <<EOS
@@ -63,14 +54,4 @@ A |                    B | Somewhat long header
 EOS
       end
   end
-
-  def capture_stdout
-    existing_stream = $stdout
-    $stdout = StringIO.new
-    yield
-    output = $stdout.string
-    $stdout = existing_stream
-    return output
-  end
-
 end

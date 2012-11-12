@@ -1,7 +1,5 @@
-require 'minitest/autorun'
+require_relative '../test_helper'
 
-# Require files from the project lib-directory
-$:.unshift(File.join(File.dirname(__FILE__), "..", "..", "lib"))
 require 'csv_query/query'
 require 'csv_query/outputter'
 
@@ -27,20 +25,16 @@ describe CsvQuery::Query do
 
   describe "#run" do
     it "outputs results" do
-      csv_data = "Foo,Bar\nBaz,Qux"
+      csv_data = "Foo\nBar"
+      results = [["Foo"], ["Bar"]]
 
-      existing_stream = $stdout
-      $stdout = StringIO.new
-      query = CsvQuery::Query.new(csv_data, CsvQuery::Outputter)
+      outputter = MiniTest::Mock.new
+      outputter.expect(:output, '', [results])
+
+      query = CsvQuery::Query.new(csv_data, outputter)
       query.run
-      output = $stdout.string
-      $stdout = existing_stream
 
-      output.must_equal <<EOS
-Foo | Bar
-----+----
-Baz | Qux
-EOS
+      outputter.verify
     end
   end
 
