@@ -2,6 +2,8 @@ require 'csv'
 require 'optparse'
 require 'sqlite3'
 
+require 'csv_query/database'
+
 module CsvQuery
   class Query
     attr_reader :csv_data, :options
@@ -41,18 +43,9 @@ module CsvQuery
       ].join(" ")
     end
 
-    def create_database_and_table(csv)
-      database = SQLite3::Database.new(':memory:')
-
-      column_definitions = csv.headers.collect { |name| "\"#{name}\" VARCHAR(255)" }
-      database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
-
-      database
-    end
-
     def create_database_with_data_from_csv
-      database = create_database_and_table(csv)
-      import_csv_into_database(csv, database)
+      database = CsvQuery::Database.new(csv)
+      database.import_data_from_csv(csv)
       database
     end
 
@@ -66,15 +59,6 @@ module CsvQuery
 
     def headers
       options[:headers] || :first_row
-    end
-
-    def import_csv_into_database(csv, database)
-      sql = "INSERT INTO csv VALUES (#{(['?'] * csv.headers.size).join(',')})"
-      statement = database.prepare(sql)
-
-      csv.each do |row|
-        statement.execute(row.fields)
-      end
     end
 
     def output_results_table(results)
@@ -91,7 +75,7 @@ module CsvQuery
     end
 
     def run_query
-      database.execute2(sql_query)
+      database.query(sql_query)
     end
 
     def sql_query
