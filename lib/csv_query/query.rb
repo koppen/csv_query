@@ -16,7 +16,7 @@ module CsvQuery
     def initialize(csv_data, outputter, options = {})
       @csv_data = csv_data
       @outputter = outputter
-      @options = options.merge(DEFAULT_OPTIONS)
+      @options = DEFAULT_OPTIONS.merge(options)
     end
 
     def run

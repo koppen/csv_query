@@ -11,10 +11,16 @@ describe CsvQuery::Query do
       query.csv_data.must_equal('foo')
     end
 
-    it "merges options with default options" do
+    it "uses default options" do
       query = CsvQuery::Query.new('foo', CsvQuery::Outputter, {:bar => 'baz'})
       query.options[:delimiter].must_equal(',')
       query.options[:select].must_equal('*')
+    end
+
+    it "merges options with default options" do
+      query = CsvQuery::Query.new('foo', CsvQuery::Outputter, {:delimiter => ";", :select => "stuff"})
+      query.options[:delimiter].must_equal(";")
+      query.options[:select].must_equal("stuff")
     end
 
     it "preserves extra options" do
