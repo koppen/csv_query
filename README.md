@@ -18,7 +18,7 @@ Assumptions
 
 The first row of data is assumed to be headers.
 
-All fields are created as `VARCHAR(255)`, which hopefully works for most cases.
+All fields are created as `TEXT`, which hopefully works for most cases.
 
 Behind the scenes
 -----------------

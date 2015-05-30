@@ -15,13 +15,13 @@ describe CsvQuery::Database do
   describe ".new" do
     it "creates SQLite database" do
       database = build_database
-      database.database.class.must_equal(SQLite3::Database)
+      database.sqlite_database.class.must_equal(SQLite3::Database)
     end
 
     it "creates a database table" do
       database = build_database
 
-      columns = database.database.table_info("csv")
+      columns = database.sqlite_database.table_info("csv")
       columns.collect { |column| column["name"] }.must_equal(["Foo"])
     end
   end
@@ -31,7 +31,7 @@ describe CsvQuery::Database do
       database = build_database
       database.import_data_from_csv(csv_data)
 
-      results = database.database.query("SELECT * FROM csv")
+      results = database.sqlite_database.query("SELECT * FROM csv")
       results.to_a.must_equal([["Bar"]])
     end
   end
