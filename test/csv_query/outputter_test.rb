@@ -71,4 +71,11 @@ Monkeys |       12 | 123.456
 EOS
     end
   end
+
+  it "outputs nothing if results are empty" do
+    output = capture_stdout do
+      CsvQuery::Outputter.output([])
+    end
+    output.must_equal ""
+  end
 end
