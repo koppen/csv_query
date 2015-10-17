@@ -4,6 +4,13 @@ require 'csv_query/query'
 require 'csv_query/outputter'
 
 describe CsvQuery::Query do
+  class CapturingOutputter
+    attr_reader :lines
+
+    def output(lines)
+      @lines = lines
+    end
+  end
 
   describe "creating a new instance" do
     it "stores CSV data for later use" do
@@ -34,14 +41,12 @@ describe CsvQuery::Query do
       csv_data = "Foo\nBar"
       results = [["Foo"], ["Bar"]]
 
-      outputter = MiniTest::Mock.new
-      outputter.expect(:output, '', [results])
+      outputter = CapturingOutputter.new
 
       query = CsvQuery::Query.new(csv_data, outputter)
       query.run
 
-      outputter.verify
+      outputter.lines.must_equal(results)
     end
   end
-
 end
