@@ -3,14 +3,14 @@ require "optparse"
 require "sqlite3"
 
 require "csv_query/database"
+require "csv_query/query_builder"
 
 module CsvQuery
   class Query
     attr_reader :csv_data, :options
 
     DEFAULT_OPTIONS = {
-      :delimiter => ",",
-      :select => "*"
+      :delimiter => ","
     }
 
     def initialize(csv_data, outputter, options = {})
@@ -30,17 +30,7 @@ module CsvQuery
       sql_query = options[:sql_query]
       return sql_query unless sql_query.nil?
 
-      select_statement = "SELECT #{options[:select]}"
-      from_statement = "FROM csv"
-      where_statement = if options[:where]
-        "WHERE #{options[:where]}"
-      end
-
-      [
-        select_statement,
-        from_statement,
-        where_statement
-      ].join(" ")
+      QueryBuilder.new(options).call
     end
 
     def create_database_with_data_from_csv
