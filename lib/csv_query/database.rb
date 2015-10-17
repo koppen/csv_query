@@ -22,7 +22,8 @@ module CsvQuery
       end
     end
 
-    # Returns the results of sql. First row of the resultset contains the column names
+    # Returns the results of sql. First row of the resultset contains the column
+    # names
     def query(sql)
       database.execute2(sql)
     end
@@ -30,7 +31,9 @@ module CsvQuery
     private
 
     def create_table(column_names)
-      column_definitions = column_names.collect { |name| "\"#{name}\" VARCHAR(255)" }
+      column_definitions = column_names.collect do |name|
+        "\"#{name}\" VARCHAR(255)"
+      end
       database.execute "CREATE TABLE csv (#{column_definitions.join(', ')})"
     end
   end

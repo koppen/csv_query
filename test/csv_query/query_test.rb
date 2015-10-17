@@ -25,7 +25,12 @@ describe CsvQuery::Query do
     end
 
     it "merges options with default options" do
-      query = CsvQuery::Query.new("foo", CsvQuery::Outputter, :delimiter => ";", :select => "stuff")
+      query = CsvQuery::Query.new(
+        "foo",
+        CsvQuery::Outputter,
+        :delimiter => ";",
+        :select => "stuff"
+      )
       query.options[:delimiter].must_equal(";")
       query.options[:select].must_equal("stuff")
     end

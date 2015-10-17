@@ -10,13 +10,16 @@ Gem::Specification.new do |s|
   s.email       = ["jakob@mentalized.net"]
   s.homepage    = "http://mentalized.net"
   s.summary     = "Use SQL to query CSV data"
-  s.description = "CSV Query allows you to run SQL queries against data stored in CSV files."
+  s.description = "CSV Query allows you to run SQL queries against data " \
+                  "stored in CSV files."
 
   s.required_ruby_version = ">= 1.9"
   s.add_dependency("sqlite3")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map do |f|
+    File.basename(f)
+  end
   s.require_paths = ["lib"]
 end
