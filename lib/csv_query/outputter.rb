@@ -36,7 +36,7 @@ module CsvQuery
           column_widths[index] = width if width > column_widths[index]
         end
       }
-      return column_widths
+      column_widths
     end
 
     def format_string
@@ -49,7 +49,7 @@ module CsvQuery
     end
 
     def separator_line
-      column_widths.collect { |width| '-' * width }.join('-+-')
+      column_widths.collect { |width| "-" * width }.join("-+-")
     end
   end
 end

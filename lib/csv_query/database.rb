@@ -1,4 +1,4 @@
-require 'sqlite3'
+require "sqlite3"
 
 module CsvQuery
   # Wraps a SQLite in-memory database with a single table named csv.
@@ -6,7 +6,7 @@ module CsvQuery
     attr_reader :database
 
     def initialize(csv)
-      @database = SQLite3::Database.new(':memory:')
+      @database = SQLite3::Database.new(":memory:")
       @columns = csv.headers
       create_table(@columns)
     end
@@ -31,7 +31,7 @@ module CsvQuery
 
     def create_table(column_names)
       column_definitions = column_names.collect { |name| "\"#{name}\" VARCHAR(255)" }
-      database.execute "CREATE TABLE csv (#{column_definitions.join(", ")})"
+      database.execute "CREATE TABLE csv (#{column_definitions.join(', ')})"
     end
   end
 end

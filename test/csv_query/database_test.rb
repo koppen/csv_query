@@ -1,9 +1,8 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
-require 'csv_query/database'
+require "csv_query/database"
 
 describe CsvQuery::Database do
-
   def csv_data
     @csv_data ||= CSV.parse("Bar", :headers => ["Foo"])
   end

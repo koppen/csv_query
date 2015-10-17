@@ -1,6 +1,6 @@
-require_relative '../test_helper'
+require_relative "../test_helper"
 
-require 'csv_query/outputter'
+require "csv_query/outputter"
 
 describe CsvQuery::Outputter do
   describe "creating a new instance" do
@@ -13,7 +13,7 @@ describe CsvQuery::Outputter do
   describe ".output" do
     it "outputs results to STDOUT" do
       output = capture_stdout do
-        CsvQuery::Outputter.output([['Foo']])
+        CsvQuery::Outputter.output([["Foo"]])
       end
       output.must_equal("Foo\n---\n")
     end

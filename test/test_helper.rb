@@ -1,11 +1,11 @@
 require "coveralls"
 Coveralls.wear!
 
-require 'minitest/autorun'
-require 'stringio'
+require "minitest/autorun"
+require "stringio"
 
 # Require files from the project lib-directory
-$:.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
+$LOAD_PATH.unshift(File.join(File.dirname(__FILE__), "..", "lib"))
 
 def capture_stdout
   existing_stream = $stdout
@@ -13,5 +13,5 @@ def capture_stdout
   yield
   output = $stdout.string
   $stdout = existing_stream
-  return output
+  output
 end

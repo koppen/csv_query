@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
+$LOAD_PATH.push File.expand_path("../lib", __FILE__)
 require "csv_query/version"
 
 Gem::Specification.new do |s|
@@ -9,15 +9,14 @@ Gem::Specification.new do |s|
   s.authors     = ["Jakob Skjerning"]
   s.email       = ["jakob@mentalized.net"]
   s.homepage    = "http://mentalized.net"
-  s.summary     = %q{Use SQL to query CSV data}
-  s.description = %q{CSV Query allows you to run SQL queries against data stored in CSV files.}
+  s.summary     = "Use SQL to query CSV data"
+  s.description = "CSV Query allows you to run SQL queries against data stored in CSV files."
 
-  s.required_ruby_version = '>= 1.9'
-  s.add_dependency('sqlite3')
+  s.required_ruby_version = ">= 1.9"
+  s.add_dependency("sqlite3")
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.executables   = `git ls-files -- bin/*`.split("\n").map { |f| File.basename(f) }
   s.require_paths = ["lib"]
-
 end

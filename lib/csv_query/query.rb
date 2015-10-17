@@ -1,16 +1,16 @@
-require 'csv'
-require 'optparse'
-require 'sqlite3'
+require "csv"
+require "optparse"
+require "sqlite3"
 
-require 'csv_query/database'
+require "csv_query/database"
 
 module CsvQuery
   class Query
     attr_reader :csv_data, :options
 
     DEFAULT_OPTIONS = {
-      :delimiter => ',',
-      :select => '*'
+      :delimiter => ",",
+      :select => "*"
     }
 
     def initialize(csv_data, outputter, options = {})

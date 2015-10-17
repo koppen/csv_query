@@ -1,5 +1,5 @@
-require 'csv_query/outputter'
-require 'csv_query/query'
+require "csv_query/outputter"
+require "csv_query/query"
 
 module CsvQuery
   class CommandLine
