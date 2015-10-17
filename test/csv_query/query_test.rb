@@ -48,5 +48,17 @@ describe CsvQuery::Query do
 
       outputter.lines.must_equal(results)
     end
+
+    it "filters results using :where option" do
+      csv_data = "Foo\nBar\nBaz"
+      results = [["Foo"], ["Baz"]]
+
+      outputter = CapturingOutputter.new
+
+      query = CsvQuery::Query.new(csv_data, outputter, :where => "Foo='Baz'")
+      query.run
+
+      outputter.lines.must_equal(results)
+    end
   end
 end
