@@ -3,6 +3,7 @@ require "csv_query/query"
 
 module CsvQuery
   class CommandLine
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def self.parse_options_from_commandline
       options = {}
 
@@ -61,6 +62,7 @@ module CsvQuery
 
       options
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     def self.run
       options = parse_options_from_commandline
