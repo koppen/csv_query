@@ -24,8 +24,6 @@ module CsvQuery
     private
 
     def column_widths
-      return @column_widths if @column_widths
-
       results.each_with_object([0] * number_of_columns) { |row, column_widths|
         row.each_with_index do |value, index|
           width = value.to_s.size
