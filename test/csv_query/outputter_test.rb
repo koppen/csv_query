@@ -32,11 +32,11 @@ describe CsvQuery::Outputter do
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<~EOS
+      output.must_equal <<~EXPECTED
         Foo | Bar
         ----+----
         Baz | Qux
-      EOS
+      EXPECTED
     end
 
     it "adapts column widths to result widths" do
@@ -49,11 +49,11 @@ describe CsvQuery::Outputter do
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<~EOS
+      output.must_equal <<~EXPECTED
         A |                    B | Somewhat long header
         --+----------------------+---------------------
         1 | Somewhat long result |                    3
-      EOS
+      EXPECTED
     end
 
     it "works with numeric results" do
@@ -66,11 +66,11 @@ describe CsvQuery::Outputter do
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<~EOS
+      output.must_equal <<~EXPECTED
          Animal | COUNT(*) | Average
         --------+----------+--------
         Monkeys |       12 | 123.456
-      EOS
+      EXPECTED
     end
   end
 
