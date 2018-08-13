@@ -42,7 +42,7 @@ module CsvQuery
     end
 
     def csv
-      @parsed_csv ||= parse_csv_data
+      @csv ||= parse_csv_data
     end
 
     def database
