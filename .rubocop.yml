@@ -43,6 +43,7 @@ Metrics/BlockLength:
     - 'Guardfile'
     - 'Rakefile'
     - 'spec/**/*'
+    - 'test/**/*'
 
 Metrics/ClassLength:
   Exclude:
