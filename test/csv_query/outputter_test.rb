@@ -72,6 +72,16 @@ describe CsvQuery::Outputter do
         Monkeys |       12 | 123.456
       EXPECTED
     end
+
+    it "returns nothing if result is empty" do
+      results = []
+
+      output = capture_stdout do
+        CsvQuery::Outputter.output(results)
+      end
+
+      output.must_equal("")
+    end
   end
 
   it "outputs nothing if results are empty" do
