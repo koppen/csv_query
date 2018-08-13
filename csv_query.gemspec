@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.description = "CSV Query allows you to run SQL queries against data " \
                   "stored in CSV files."
 
-  s.required_ruby_version = ">= 1.9"
+  s.required_ruby_version = ">= 2.3"
   s.add_dependency("sqlite3")
 
   s.files         = `git ls-files`.split("\n")
