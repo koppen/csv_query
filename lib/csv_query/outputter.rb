@@ -25,14 +25,13 @@ module CsvQuery
 
     def column_widths
       return @column_widths if @column_widths
-      column_widths = [0] * number_of_columns
-      results.collect { |row|
+
+      results.each_with_object([0] * number_of_columns) { |row, column_widths|
         row.each_with_index do |value, index|
           width = value.to_s.size
           column_widths[index] = width if width > column_widths[index]
         end
       }
-      column_widths
     end
 
     def format_string
