@@ -15,7 +15,7 @@ module CsvQuery
     def output
       results.each_with_index do |result, index|
         puts format_string % result
-        if index == 0
+        if index.zero?
           puts separator_line
         end
       end
