@@ -25,13 +25,7 @@ module CsvQuery
 
     def column_widths
       return @column_widths if @column_widths
-      num_columns = if results.first
-        results.first.size
-      else
-        0
-      end
-
-      column_widths = [0] * num_columns
+      column_widths = [0] * number_of_columns
       results.collect { |row|
         row.each_with_index do |value, index|
           width = value.to_s.size
@@ -48,6 +42,14 @@ module CsvQuery
         "%#{width}s"
       }
       @format_string = format_strings.join(" | ")
+    end
+
+    def number_of_columns
+      if results.first
+        results.first.size
+      else
+        0
+      end
     end
 
     def separator_line
