@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "csv"
 require "optparse"
 require "sqlite3"
@@ -11,7 +13,7 @@ module CsvQuery
 
     DEFAULT_OPTIONS = {
       :delimiter => ","
-    }
+    }.freeze
 
     def initialize(csv_data, outputter, options = {})
       @csv_data = csv_data
@@ -40,7 +42,7 @@ module CsvQuery
     end
 
     def csv
-      @parsed_csv ||= parse_csv_data
+      @csv ||= parse_csv_data
     end
 
     def database

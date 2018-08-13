@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative "../test_helper"
 
 require "csv_query/outputter"
@@ -30,11 +32,11 @@ describe CsvQuery::Outputter do
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<EOS
-Foo | Bar
-----+----
-Baz | Qux
-EOS
+      output.must_equal <<~EXPECTED
+        Foo | Bar
+        ----+----
+        Baz | Qux
+      EXPECTED
     end
 
     it "adapts column widths to result widths" do
@@ -47,11 +49,11 @@ EOS
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<EOS
-A |                    B | Somewhat long header
---+----------------------+---------------------
-1 | Somewhat long result |                    3
-EOS
+      output.must_equal <<~EXPECTED
+        A |                    B | Somewhat long header
+        --+----------------------+---------------------
+        1 | Somewhat long result |                    3
+      EXPECTED
     end
 
     it "works with numeric results" do
@@ -64,11 +66,21 @@ EOS
         CsvQuery::Outputter.output(results)
       end
 
-      output.must_equal <<EOS
- Animal | COUNT(*) | Average
---------+----------+--------
-Monkeys |       12 | 123.456
-EOS
+      output.must_equal <<~EXPECTED
+         Animal | COUNT(*) | Average
+        --------+----------+--------
+        Monkeys |       12 | 123.456
+      EXPECTED
+    end
+
+    it "returns nothing if result is empty" do
+      results = []
+
+      output = capture_stdout do
+        CsvQuery::Outputter.output(results)
+      end
+
+      output.must_equal("")
     end
   end
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvQuery
   class Outputter
     attr_reader :results
@@ -13,7 +15,7 @@ module CsvQuery
     def output
       results.each_with_index do |result, index|
         puts format_string % result
-        if index == 0
+        if index.zero?
           puts separator_line
         end
       end
@@ -22,21 +24,12 @@ module CsvQuery
     private
 
     def column_widths
-      return @column_widths if @column_widths
-      num_columns = if results.first
-        results.first.size
-      else
-        0
-      end
-
-      column_widths = [0] * num_columns
-      results.collect { |row|
+      results.each_with_object([0] * number_of_columns) { |row, column_widths|
         row.each_with_index do |value, index|
           width = value.to_s.size
           column_widths[index] = width if width > column_widths[index]
         end
       }
-      column_widths
     end
 
     def format_string
@@ -46,6 +39,14 @@ module CsvQuery
         "%#{width}s"
       }
       @format_string = format_strings.join(" | ")
+    end
+
+    def number_of_columns
+      if results.first
+        results.first.size
+      else
+        0
+      end
     end
 
     def separator_line
