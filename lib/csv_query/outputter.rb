@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CsvQuery
   class Outputter
     attr_reader :results

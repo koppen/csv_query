@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module CsvQuery
   class QueryBuilder
     DEFAULT_OPTIONS = {
       :select => "*"
-    }
+    }.freeze
 
     attr_reader :options
 
